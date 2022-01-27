@@ -133,7 +133,7 @@ body {
 }
 
 .list > li > i {
-  font-size: 1.24rem;
+  font-size: 1.4rem;
   color: #333;
 }
 
@@ -142,10 +142,6 @@ body {
   font-weight: 600;
   margin-left: 8px;
   color: #333;
-}
-
-.list__icon--margin {
-  margin: 0 2px;
 }
 
 .list__item:hover {
@@ -436,4 +432,39 @@ body {
 
 .playlist__item--active > .item__block > .item__icon > i:last-child {
   display: none;
+}
+
+@media (max-width: 86em) and (min-width: 64em) {
+  .player__nav {
+    padding: 12px 24px 0;
+  }
+
+  .player__title__music-name {
+    font-size: 2rem;
+    font-weight: 700;
+  }
+
+  .player__title__music__author {
+    font-size: 1.2rem;
+    font-weight: 500;
+    margin: 4px 0 24px;
+  }
+  .player__control__prev,
+  .player__control__next {
+    font-size: 1.4rem;
+  }
+
+  .player__control__toggle-play {
+    font-size: 2rem;
+    width: 64px;
+    height: 64px;
+  }
+
+  #player__range {
+    margin: 24px auto 0;
+  }
+}
+
+@media (max-width: 63.9375em) and (min-width: 46.25em) {
+
 }
