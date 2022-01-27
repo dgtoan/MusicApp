@@ -1,5 +1,6 @@
 const $ = document.querySelector.bind(document);
 const $$ = document.querySelectorAll.bind(document);
+const PLAYER__STORAGE__KEY = "TORAF_MUSIC";
 
 const audio = $("#audio");
 const togglePlay = $(".player__control__toggle-play");
@@ -15,7 +16,7 @@ const musicTime = $(".player__time__end");
 const playerImg = $("#player__img");
 const repeatBtn = $(".player__control__repeat");
 const randomBtn = $(".player__control__random");
-const playList = $('.playlist__main')
+const playList = $(".playlist__main");
 
 var isPlay = false;
 var isRepeat = false;
@@ -23,6 +24,11 @@ var isRandom = false;
 
 const app = {
   currentIndex: 0,
+  config: JSON.parse(localStorage.getItem(PLAYER__STORAGE__KEY)) || {},
+  setConfig: function(key, value) {
+    this.config[key] = value
+    localStorage.setItem(PLAYER__STORAGE__KEY, JSON.stringify(this.config))
+  },
   songs: [
     {
       name: "Cưới Thôi",
@@ -95,6 +101,13 @@ const app = {
       time: "04:52",
     },
   ],
+  loadConfig: function() {
+    this.currentIndex = this.config.currentIndex
+    isRandom = this.config.isRandom
+    isRepeat = this.config.isRepeat
+    repeatBtn.classList.toggle("active", isRepeat);
+    randomBtn.classList.toggle("active", isRandom);
+  },
   render: function () {
     const htmls = this.songs.map(function (song, index) {
       return `<div class="playlist__item item${index}">
@@ -129,6 +142,7 @@ const app = {
   },
 
   loadCurrentSong: function () {
+    this.setConfig("currentIndex", this.currentIndex)
     let activeItem = $(".playlist__item--active");
     if (activeItem) {
       activeItem.classList.remove("playlist__item--active");
@@ -141,7 +155,14 @@ const app = {
     backgroundImg.style.backgroundImage = `url(${this.currentSong.img})`;
     itemActive.classList.add("playlist__item--active");
     musicTime.textContent = this.currentSong.time;
-    itemActive.scrollIntoView();
+    setTimeout(function () {
+      itemActive.scrollIntoView({
+        behavior: "smooth",
+      });
+    }, 100);
+  },
+  loadCurrentTime: function () {
+    audio.currentTime = this.config.currentTime
   },
 
   handleEvents: function () {
@@ -153,17 +174,20 @@ const app = {
         audio.play();
       }
     };
-    playList.onclick = function(e) {
-      const item = e.target.closest('.playlist__item:not(.playlist__item--active)')
+    playList.onclick = function (e) {
+      const item = e.target.closest(
+        ".playlist__item:not(.playlist__item--active)"
+      );
       // console.log(e.target.closest('.bx-x'))
-      if ( item || e.target.closest('.bx-x')) {
-        if (item && !(e.target.closest('.bx-x'))) {
-          app.currentIndex = +(item.querySelector('.item__index').textContent) - 1
+      if (item || e.target.closest(".bx-x")) {
+        if (item && !e.target.closest(".bx-x")) {
+          app.currentIndex =
+            +item.querySelector(".item__index").textContent - 1;
           app.loadCurrentSong();
           audio.play();
         }
       }
-    }
+    };
     const imgRotate = playerImg.animate([{ transform: "rotate(360deg)" }], {
       duration: 10000,
       iterations: Infinity,
@@ -195,6 +219,7 @@ const app = {
     audio.ontimeupdate = function () {
       if (audio.duration) {
         range.value = Math.floor((audio.currentTime / audio.duration) * 1000);
+        app.setConfig("currentTime", Math.floor(audio.currentTime))
         rangeChange();
       }
     };
@@ -233,32 +258,35 @@ const app = {
     };
     repeatBtn.onclick = function () {
       isRepeat = !isRepeat;
+      app.setConfig("isRepeat", isRepeat)
       repeatBtn.classList.toggle("active", isRepeat);
     };
     randomBtn.onclick = function () {
       isRandom = !isRandom;
+      app.setConfig("isRandom", isRandom)
       randomBtn.classList.toggle("active", isRandom);
     };
     audio.onended = function () {
       if (isRepeat) {
-        audio.play()
+        audio.play();
       } else {
-        nextBtn.click()
+        nextBtn.click();
       }
-    }
+    };
   },
 
   start: function () {
     audio.volume = 0.5;
+    this.loadConfig();
     this.defineProperties();
     this.render();
     this.loadCurrentSong();
+    this.loadCurrentTime();
     this.handleEvents();
   },
 };
 
 app.start();
-
 
 // const oldSongs = [
 //   {

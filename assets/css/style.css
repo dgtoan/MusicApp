@@ -334,10 +334,9 @@ body {
   background-color: var(--primary-color);
   box-shadow: none;
 }
-
 .playlist__main {
   background-color: #fff8f8f5;
-  height: calc(100vh - var(--nav-width) - 72px);
+  height: calc(100vh - var(--nav-width) - 80px);
   overflow-y: auto;
 }
 
@@ -358,8 +357,14 @@ body {
   background: #f0b5b5;
 }
 
-.play__list__main--br {
+.play__list--br {
+  background-color: #fff8f8f5;
+  width: 100%;
   height: 8px;
+}
+
+.play__list__main--br {
+  height: 4px;
 }
 
 .playlist__item {
