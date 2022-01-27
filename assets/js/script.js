@@ -172,9 +172,6 @@ const app = {
       });
     }, 100);
   },
-  loadCurrentTime: function () {
-    audio.currentTime = this.config.currentTime;
-  },
   loadVolume: function () {
     nowVolume = this.config.nowVolume || 0.5;
     volumeChange.value = nowVolume * 100;
@@ -335,7 +332,9 @@ const app = {
     this.defineProperties();
     this.render();
     this.loadCurrentSong();
-    this.loadCurrentTime();
+    if (this.config.currentTime) {
+      audio.currentTime = this.config.currentTime;
+    }
     this.handleEvents();
   },
 };
