@@ -17,17 +17,24 @@ const playerImg = $("#player__img");
 const repeatBtn = $(".player__control__repeat");
 const randomBtn = $(".player__control__random");
 const playList = $(".playlist__main");
+const volumeIcon = $(".bx-volume-full");
+const volumeMute = $(".bx-volume-mute");
+const volumeRange = $(".volume__range");
+const volumeChange = $("#volume__range");
+const heartSolid = $(".bx-heart");
+const heartFull = $(".bxs-heart");
 
 var isPlay = false;
 var isRepeat = false;
 var isRandom = false;
+var nowVolume = 0;
 
 const app = {
   currentIndex: 0,
   config: JSON.parse(localStorage.getItem(PLAYER__STORAGE__KEY)) || {},
-  setConfig: function(key, value) {
-    this.config[key] = value
-    localStorage.setItem(PLAYER__STORAGE__KEY, JSON.stringify(this.config))
+  setConfig: function (key, value) {
+    this.config[key] = value;
+    localStorage.setItem(PLAYER__STORAGE__KEY, JSON.stringify(this.config));
   },
   songs: [
     {
@@ -101,10 +108,10 @@ const app = {
       time: "04:52",
     },
   ],
-  loadConfig: function() {
-    this.currentIndex = this.config.currentIndex
-    isRandom = this.config.isRandom
-    isRepeat = this.config.isRepeat
+  loadConfig: function () {
+    this.currentIndex = this.config.currentIndex;
+    isRandom = this.config.isRandom;
+    isRepeat = this.config.isRepeat;
     repeatBtn.classList.toggle("active", isRepeat);
     randomBtn.classList.toggle("active", isRandom);
   },
@@ -142,7 +149,7 @@ const app = {
   },
 
   loadCurrentSong: function () {
-    this.setConfig("currentIndex", this.currentIndex)
+    this.setConfig("currentIndex", this.currentIndex);
     let activeItem = $(".playlist__item--active");
     if (activeItem) {
       activeItem.classList.remove("playlist__item--active");
@@ -162,7 +169,12 @@ const app = {
     }, 100);
   },
   loadCurrentTime: function () {
-    audio.currentTime = this.config.currentTime
+    audio.currentTime = this.config.currentTime;
+  },
+  loadVolume: function () {
+    nowVolume = this.config.nowVolume || 0.5;
+    volumeChange.value = nowVolume * 100;
+    audio.volume = nowVolume;
   },
 
   handleEvents: function () {
@@ -194,6 +206,43 @@ const app = {
     });
     imgRotate.pause();
 
+    volumeIcon.onmouseover = function () {
+      volumeRange.style.display = "block";
+    };
+    volumeIcon.onmouseout = function () {
+      volumeRange.style.display = "none";
+    };
+    volumeRange.onmouseover = function () {
+      volumeRange.style.display = "block";
+    };
+    volumeRange.onmouseout = function () {
+      volumeRange.style.display = "none";
+    };
+    heartSolid.onclick = function () {
+      heartSolid.classList.add("hidden");
+      heartFull.classList.remove("hidden");
+    }
+    heartFull.onclick = function () {
+      heartFull.classList.add("hidden");
+      heartSolid.classList.remove("hidden");
+    }
+    volumeIcon.onclick = function () {
+      volumeIcon.classList.add("hidden");
+      volumeMute.classList.remove("hidden");
+      audio.volume = 0;
+    };
+    volumeMute.onclick = function () {
+      volumeMute.classList.add("hidden");
+      volumeIcon.classList.remove("hidden");
+      app.loadVolume();
+    };
+
+    volumeChange.oninput = function () {
+      console.log(volumeChange.value / 100);
+      audio.volume = volumeChange.value / 100;
+      app.setConfig("nowVolume", audio.volume);
+    };
+
     audio.onplay = function () {
       playBtn[0].classList.remove("hidden");
       playBtn[1].classList.add("hidden");
@@ -219,7 +268,7 @@ const app = {
     audio.ontimeupdate = function () {
       if (audio.duration) {
         range.value = Math.floor((audio.currentTime / audio.duration) * 1000);
-        app.setConfig("currentTime", Math.floor(audio.currentTime))
+        app.setConfig("currentTime", Math.floor(audio.currentTime));
         rangeChange();
       }
     };
@@ -258,12 +307,12 @@ const app = {
     };
     repeatBtn.onclick = function () {
       isRepeat = !isRepeat;
-      app.setConfig("isRepeat", isRepeat)
+      app.setConfig("isRepeat", isRepeat);
       repeatBtn.classList.toggle("active", isRepeat);
     };
     randomBtn.onclick = function () {
       isRandom = !isRandom;
-      app.setConfig("isRandom", isRandom)
+      app.setConfig("isRandom", isRandom);
       randomBtn.classList.toggle("active", isRandom);
     };
     audio.onended = function () {
@@ -276,8 +325,8 @@ const app = {
   },
 
   start: function () {
-    audio.volume = 0.5;
     this.loadConfig();
+    this.loadVolume();
     this.defineProperties();
     this.render();
     this.loadCurrentSong();
