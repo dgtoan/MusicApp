@@ -669,8 +669,11 @@ body {
   }
   .playlist__main {
     background-color: #fff8f8f5;
-    height: calc(100vh - var(--nav-width) - 100vw - 42px);
+    height: calc(100vh - var(--nav-width) - 80vw);
     overflow-y: auto;
+  }
+  .playlist__main::-webkit-scrollbar {
+    width: 6px;
   }
   .item__time {
     display: none;

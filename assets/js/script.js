@@ -155,7 +155,7 @@ const app = {
       activeItem.classList.remove("playlist__item--active");
     }
     const itemActive = $(`.item${this.currentIndex}`);
-    musicName.textContent = this.currentSong.name;
+    musicName.textContent = this.songs[this.currentIndex].name;
     musicAuthor.textContent = this.currentSong.singer;
     musicImg.src = this.currentSong.img;
     audio.src = this.currentSong.path;
