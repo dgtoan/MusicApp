@@ -621,15 +621,16 @@ body {
   }
 
   .player__title {
-    margin-top: 60px;
-    margin-left: 200px;
+    margin-top: 48px;
+    margin-left: 180px;
+    padding-right: 8px;
   }
   .player__img {
     width: 25%;
     height: 25%;
     margin: 0;
     margin-left: 48px;
-    margin-top: -72px;
+    margin-top: -84px;
   }
 
   #player__range {
@@ -669,7 +670,7 @@ body {
   }
   .playlist__main {
     background-color: #fff8f8f5;
-    height: calc(100vh - var(--nav-width) - 80vw);
+    height: calc(100vh - var(--nav-width) - 100vw - 20px);
     overflow-y: auto;
   }
   .playlist__main::-webkit-scrollbar {
