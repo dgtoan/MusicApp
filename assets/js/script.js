@@ -114,10 +114,14 @@ const app = {
     } else {
       this.currentIndex = 0;
     }
-    isRandom = this.config.isRandom;
-    isRepeat = this.config.isRepeat;
-    repeatBtn.classList.toggle("active", isRepeat);
-    randomBtn.classList.toggle("active", isRandom);
+    if (this.config.isRandom) {
+      isRandom = this.config.isRandom;
+      randomBtn.classList.toggle("active", isRandom);
+    }
+    if (this.config.isRepeat) {
+      isRepeat = this.config.isRepeat;
+      repeatBtn.classList.toggle("active", isRepeat);
+    }
   },
   render: function () {
     const htmls = this.songs.map(function (song, index) {
