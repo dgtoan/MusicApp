@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Toraf Music</title>
+    <link
+      rel="shortcut icon"
+      href="./assets/img/toraf.png"
+      type="image/x-icon"
+    />
+    <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css"
+      integrity="sha512-NhSC1YmyruXifcj/KFRWoC561YpHpc5Jtzgvbuzx5VozKpWvQ+4nXhPdFgmx8xqexRcpAglTj9sIBWINXa8x5w=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link
+      rel="stylesheet"
+      href="./assets/fonts/fontawesome-free-5.15.4-web/css/all.min.css"
+    />
+    <link rel="stylesheet" href="./assets/css/grid.css" />
+    <link rel="stylesheet" href="./assets/css/base.css" />
+    <link rel="stylesheet" href="./assets/css/style.css" />
+    <style></style>
+  </head>
+  <body>
+    <div class="nav">
+      <ul class="nav__list">
+        <li class="nav__item nav__item-logo">
+          <img src="./assets/img/toraf.png" alt="" />
+          <span>Nghe nhạc theo cách của bạn :v</span>
+        </li>
+        <li class="nav__item nav__item-search">
+          <div>
+            <div>
+              <i class="nav__item-search-icon fas fa-search"></i>
+            </div>
+            <input type="text" name="" id="" placeholder="coming soon . . ." />
+          </div>
+        </li>
+        <li class="nav__item">
+          <button class="nav__item-btn">Đăng Nhập</button>
+        </li>
+      </ul>
+    </div>
+
+    <div class="main">
+      <ul class="list">
+        <li class="list__item list__item--active">
+          <i class="fas fa-home"></i>
+          <span>HOME</span>
+        </li>
+        <li class="list__item">
+          <i class="fas fa-compact-disc"></i>
+          <span>COLLECTION</span>
+        </li>
+        <li class="list__item">
+          <i class="list__icon--margin fas fa-file-audio"></i>
+          <span>UPLOAD</span>
+        </li>
+      </ul>
+
+      <div class="app">
+        <div class="player">
+          <div class="player__bg"></div>
+          <div class="player__nav">
+            <i class="fas fa-ellipsis-h"></i>
+            <!-- <i class="fas fa-heart"></i> -->
+            <i class="far fa-heart"></i>
+          </div>
+          <div class="player__music">
+            <div class="player__title">
+              <span class="player__title__music-name">Cưới Thôi</span>
+              <span class="player__title__music__author"> Masiu x Masew </span>
+            </div>
+            <div class="player__img">
+              <img id="player__img" src="https://data.chiasenhac.com/data/cover/65/64657.jpg" alt="music_avatar" />
+            </div>
+            <div class="player__range">
+              <input type="range" id="player__range" value="1" min="1" step="1" max="1000"/>
+              <div class="range__after"></div>
+            </div>
+            <div class="player__time">
+              <div class="player__time__now">00:00</div>
+              <div class="player__time__end">04:11</div>
+            </div>
+            <div class="player__control">
+              <div class="player__control__repeat">
+                <i class="fas fa-redo"></i>
+              </div>
+              <div class="player__control__prev">
+                <i class="fas fa-step-backward"></i>
+              </div>
+              <div class="player__control__toggle-play">
+                <i class="fas fa-pause icon-pause hidden"></i>
+                <i class="fas fa-play icon-play"></i>
+              </div>
+              <div class="player__control__next">
+                <i class="fas fa-step-forward"></i>
+              </div>
+              <div class="player__control__random">
+                <i class="fas fa-random"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="playlist">
+          <div class="playlist__nav">
+            <div class="playlist__nav__lyrics">lyrics</div>
+            <div class="playlist__nav__list active">playlist</div>
+            <div class="playlist__nav__addsong">add song</div>
+          </div>
+          <div class="playlist__main">
+            
+        </div>
+      </div>
+    </div>
+    <audio id="audio" src=""></audio>
+    <script src="./assets/js/script.js"></script>
+  </body>
+</html>
