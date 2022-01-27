@@ -230,6 +230,7 @@ const app = {
       volumeIcon.classList.add("hidden");
       volumeMute.classList.remove("hidden");
       audio.volume = 0;
+      volumeRange.style.display = "none";
     };
     volumeMute.onclick = function () {
       volumeMute.classList.add("hidden");
