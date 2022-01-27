@@ -159,7 +159,6 @@ const app = {
       if ( item || e.target.closest('.bx-x')) {
         if (item && !(e.target.closest('.bx-x'))) {
           app.currentIndex = +(item.querySelector('.item__index').textContent) - 1
-          console.log(app.currentIndex)
           app.loadCurrentSong();
           audio.play();
         }
