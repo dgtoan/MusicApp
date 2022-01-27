@@ -109,7 +109,11 @@ const app = {
     },
   ],
   loadConfig: function () {
-    this.currentIndex = this.config.currentIndex;
+    if (this.config.currentIndex) {
+      this.currentIndex = this.config.currentIndex;
+    } else {
+      this.currentIndex = 0;
+    }
     isRandom = this.config.isRandom;
     isRepeat = this.config.isRepeat;
     repeatBtn.classList.toggle("active", isRepeat);
@@ -155,7 +159,7 @@ const app = {
       activeItem.classList.remove("playlist__item--active");
     }
     const itemActive = $(`.item${this.currentIndex}`);
-    musicName.textContent = this.songs[this.currentIndex].name;
+    musicName.textContent = this.currentSong.name;
     musicAuthor.textContent = this.currentSong.singer;
     musicImg.src = this.currentSong.img;
     audio.src = this.currentSong.path;
