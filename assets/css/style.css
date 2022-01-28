@@ -27,9 +27,14 @@ body {
   display: flex;
   padding: 0 24px;
   height: 100%;
+  width: 100%;
   justify-content: space-between;
   align-items: center;
   list-style: none;
+}
+
+.nav__header {
+  display: none;
 }
 
 .nav__item-logo {
@@ -78,6 +83,7 @@ body {
 
 .nav__item-btn {
   padding: 8px 16px;
+  margin-right: 44px;
   font-weight: 600;
   font-size: 1.12rem;
   color: white;
@@ -529,6 +535,11 @@ body {
     display: none;
   }
 
+  .nav__header {
+    display: block;
+    margin-left: 8px;
+  }
+
   .list {
     display: none;
   }
@@ -538,8 +549,11 @@ body {
 }
 
 @media (max-width: 64em) and (min-width: 46.25em) {
+  .nav__item-search > div {
+    padding-right: 10px;
+  }
   .nav__item-search {
-    margin-right: -6%;
+    margin-right: 2%;
   }
 
   .player {
@@ -580,7 +594,8 @@ body {
   .nav__item-search {
     border: none;
     border-radius: 0;
-    margin-right: -80%;
+    margin: 0;
+    margin-left: 100px;
   }
 
   .nav__item-search > div {
