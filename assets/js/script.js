@@ -329,7 +329,6 @@ const app = {
     //   img: "",
     //   time: "",
     // },
-    
   ],
   songs: [
     {
@@ -502,21 +501,21 @@ const app = {
           if (item && !e.target.closest(".bx-x")) {
             app.currentIndex =
               +item.querySelector(".item__index").textContent - 1;
-              app.loadCurrentSong();
-              audio.play();
+            app.loadCurrentSong();
+            audio.play();
           }
           if (e.target.closest(".bx-x")) {
             var removeIndex =
               +item.querySelector(".item__index").textContent - 1;
             if (app.songs[removeIndex].index === 0) {
-              app.fullSong[0].isAdded = false
+              app.fullSong[0].isAdded = false;
             } else {
-              app.songs[removeIndex].isAdded = false
+              app.songs[removeIndex].isAdded = false;
             }
             app.songs.splice(removeIndex, 1);
             app.render();
-            if (removeIndex < app.currentIndex)  {
-              app.currentIndex--
+            if (removeIndex < app.currentIndex) {
+              app.currentIndex--;
             }
             const itemActive = $(`.item${app.currentSong.index}`);
             itemActive.classList.add("playlist__item--active");
@@ -526,7 +525,7 @@ const app = {
       if (playlistAddSong.classList.value === "playlist__nav__addsong active") {
         const item = e.target.closest(".playlist__item");
         if (item) {
-          var addIndex = +item.classList.value[item.classList.value.length - 1];
+          var addIndex = +item.classList.value.replace("playlist__item item", "");
           if (!app.fullSong[addIndex].isAdded) {
             app.fullSong[addIndex].isAdded = true;
             app.songs.push(app.fullSong[addIndex]);
