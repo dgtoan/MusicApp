@@ -299,28 +299,44 @@ const app = {
         const item = e.target.closest(
           ".playlist__item:not(.playlist__item--active)"
         );
-        // console.log(e.target.closest('.bx-x'))
         if (item || e.target.closest(".bx-x")) {
           if (item && !e.target.closest(".bx-x")) {
             app.currentIndex =
               +item.querySelector(".item__index").textContent - 1;
-            app.loadCurrentSong();
-            audio.play();
+              app.loadCurrentSong();
+              audio.play();
+          }
+          if (e.target.closest(".bx-x")) {
+            var removeIndex =
+              +item.querySelector(".item__index").textContent - 1;
+            if (app.songs[removeIndex].index === 0) {
+              app.fullSong[0].isAdded = false
+            } else {
+              app.songs[removeIndex].isAdded = false
+            }
+            app.songs.splice(removeIndex, 1);
+            app.render();
+            if (removeIndex < app.currentIndex)  {
+              app.currentIndex--
+            }
+            const itemActive = $(`.item${app.currentSong.index}`);
+            itemActive.classList.add("playlist__item--active");
           }
         }
       }
       if (playlistAddSong.classList.value === "playlist__nav__addsong active") {
         const item = e.target.closest(".playlist__item");
         if (item) {
-          console.log(+item.classList.value[item.classList.value.length - 1]);
           var addIndex = +item.classList.value[item.classList.value.length - 1];
-          app.fullSong[addIndex].isAdded = true;
-          app.songs.push(app.fullSong[addIndex]);
-          var itemNow = $(`.item${app.fullSong[addIndex].index}`);
-          var itemIcon = itemNow.querySelectorAll(".item__icon > i");
-          itemNow.style.backgroundColor = "#ffe3e3";
-          itemIcon[0].style.display = "block";
-          itemIcon[1].style.display = "none";
+          if (!app.fullSong[addIndex].isAdded) {
+            app.fullSong[addIndex].isAdded = true;
+            app.songs.push(app.fullSong[addIndex]);
+            var itemNow = $(`.item${app.fullSong[addIndex].index}`);
+            var itemIcon = itemNow.querySelectorAll(".item__icon > i");
+            itemNow.style.backgroundColor = "#ffe3e3";
+            itemIcon[0].style.display = "block";
+            itemIcon[1].style.display = "none";
+          }
         }
       }
     };
