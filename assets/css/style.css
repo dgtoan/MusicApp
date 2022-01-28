@@ -375,7 +375,7 @@ body {
 }
 
 .playlist__nav > div:hover {
-  opacity: 0.88;
+  opacity: 0.94;
 }
 
 .playlist__nav > .active {
