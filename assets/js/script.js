@@ -43,7 +43,7 @@ const app = {
   fullSong: [
     {
       index: 0,
-      isAdded: true,
+      isAdded: false,
       name: "Hết Thương Cạn Nhớ",
       singer: "Anh Hảo Cover",
       path: "./assets/music/HetThuongCanNho.mp3",
@@ -342,6 +342,13 @@ const app = {
     },
   ],
   loadConfig: function () {
+    if (this.config.songs) {
+      this.songs = this.config.songs
+    }
+    this.songs.forEach(function (song) {
+      app.fullSong[song.index].isAdded = true
+      console.log(song)
+    })
     if (
       this.config.currentIndex &&
       this.config.currentIndex < this.songs.length
@@ -499,23 +506,19 @@ const app = {
         );
         if (item || e.target.closest(".bx-x")) {
           if (item && !e.target.closest(".bx-x")) {
-            app.currentIndex =
-              +item.querySelector(".item__index").textContent - 1;
+            app.currentIndex = +item.querySelector(".item__index").textContent - 1;
             app.loadCurrentSong();
             audio.play();
           }
           if (e.target.closest(".bx-x")) {
-            var removeIndex =
-              +item.querySelector(".item__index").textContent - 1;
-            if (app.songs[removeIndex].index === 0) {
-              app.fullSong[0].isAdded = false;
-            } else {
-              app.songs[removeIndex].isAdded = false;
-            }
+            var removeIndex = +item.querySelector(".item__index").textContent - 1;
+            app.fullSong[app.songs[removeIndex].index].isAdded = false
             app.songs.splice(removeIndex, 1);
+            app.setConfig('songs', app.songs)
             app.render();
             if (removeIndex < app.currentIndex) {
               app.currentIndex--;
+              app.setConfig('currentIndex', app.currentIndex)
             }
             const itemActive = $(`.item${app.currentSong.index}`);
             itemActive.classList.add("playlist__item--active");
@@ -529,6 +532,7 @@ const app = {
           if (!app.fullSong[addIndex].isAdded) {
             app.fullSong[addIndex].isAdded = true;
             app.songs.push(app.fullSong[addIndex]);
+            app.setConfig('songs', app.songs)
             var itemNow = $(`.item${app.fullSong[addIndex].index}`);
             var itemIcon = itemNow.querySelectorAll(".item__icon > i");
             itemNow.style.backgroundColor = "#ffe3e3";
