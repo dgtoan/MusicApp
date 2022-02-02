@@ -701,4 +701,10 @@ body {
   .item__author {
     display: none;
   }
+  .playlist__nav__addsong {
+    display: none;
+  }
+  .playlist__nav__addsong.hidden {
+    display: block;
+  }
 }
