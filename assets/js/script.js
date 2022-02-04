@@ -347,7 +347,6 @@ const app = {
     }
     this.songs.forEach(function (song) {
       app.fullSong[song.index].isAdded = true
-      console.log(song)
     })
     if (
       this.config.currentIndex &&
